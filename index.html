@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assignment</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+    <script src="//cdn.jsdelivr.net/npm/jquery@3.6.3/dist/jquery.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h2>Assignment 1</h2>
+        <div class="grid-container">
+            <div class="grid-item">170px (fluid on mobile)</div>
+            <div class="grid-item">fluid column (at least 350px)</div>
+            <div class="grid-item">200px (fluid on mobile)</div>
+        </div>
+
+        <h2>Assignment 2</h2>
+        <div class="slider multiple-items">
+            <div>
+                <h3>1</h3>
+            </div>
+            <div>
+                <h3>2</h3>
+            </div>
+            <div>
+                <h3>3</h3>
+            </div>
+            <div>
+                <h3>4</h3>
+            </div>
+            <div>
+                <h3>5</h3>
+            </div>
+            <div>
+                <h3>6</h3>
+            </div>
+            <div>
+                <h3>7</h3>
+            </div>
+            <div>
+                <h3>8</h3>
+            </div>
+            <div>
+                <h3>9</h3>
+            </div>
+        </div>
+
+        <h2>Assignment 3</h2>
+        <img src="images/gtm-implementation-example.jpg" alt="">
+
+        <h2>Assignment 4</h2>
+        <div id="carList">
+            <ul id="assignment4"></ul>
+        </div>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <script>
+        $(document).ready(function() {
+            $('.multiple-items').slick({
+                infinite: true,
+                slidesToShow: 4,
+                slidesToScroll: 1,
+                autoplay: true,
+                speed: 300,
+                responsive: [
+                    {
+                        breakpoint: 1024,
+                        settings: {
+                            slidesToShow: 3
+                        }
+                    },
+                    {
+                    breakpoint: 600,
+                        settings: {
+                            slidesToShow: 2
+                        }
+                    },
+                    {
+                    breakpoint: 480,
+                        settings: {
+                            slidesToShow: 1
+                        }
+                    }
+                ]
+            });
+        });
+
+        function sortArray(x, y) {
+            return ((x.mpg < y.mpg) ? -1 : ((x.mpg > y.mpg) ? 1 : 0));
+        }
+        
+        addEventListener("load", (event) => {
+            $.getJSON(location.href + 'js/api.json',{"callback":"?"},function(data, textStatus){ 
+                if (textStatus == "success") {
+                    var sortedData = data.automobiles.sort(sortArray);
+                    var $assignment4 = $('#assignment4')
+                    console.log(sortedData);
+                    $.each(sortedData, function(i, data){
+                        $assignment4.append('<li><b>Name</b>: '+data.name+', <b>MPG</b>: '+data.mpg+', <b>Price</b>: '+data.price+'</li>');
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
